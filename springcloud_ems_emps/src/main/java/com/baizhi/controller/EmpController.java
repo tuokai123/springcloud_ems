@@ -41,7 +41,8 @@ public class EmpController {
     @GetMapping("/delete")
     public HashMap<String, Object> delete(String id) {
         HashMap<String, Object> map = new HashMap<String, Object>();
-
+        //创建一个对象
+        Object o = new Object();
         try {
             Emp emp = empService.selectById(id);
             String path = emp.getPath();
