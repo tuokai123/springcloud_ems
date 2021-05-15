@@ -33,6 +33,7 @@ public class EmpController {
         HashMap<String, Object> map = new HashMap<>();
 
         List<Emp> emp = empService.selectAllEmp();
+        map.put("status", "success");
 
         return emp;
 
