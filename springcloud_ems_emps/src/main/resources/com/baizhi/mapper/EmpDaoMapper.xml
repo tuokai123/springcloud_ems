@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- namespace属性值：指定mapper文件管理的接口全限定名 .一个mapper文件只能管理一个 Dao接口-->
+<mapper namespace="com.baizhi.dao.EmpDao">
+
+    <sql id="querySql">
+        select id, name, path, salary, age from emp
+    </sql>
+
+    <select id="selectById" resultType="Emp">
+         <include refid="querySql"/>
+         where id=#{id}
+    </select>
+
+    <select id="selectAllEmp" resultType="Emp">
+        <include refid="querySql"/>
+    </select>
+
+    <insert id="insertEmp">
+        insert into emp(id, name, path, salary, age)
+        values(#{id},#{name},#{path},#{salary},#{age})
+    </insert>
+
+    <update id="updateById">
+        update emp
+        <set>
+            <if test="name!=null">name=#{name},</if>
+            <if test="path!=null">path=#{path},</if>
+            <if test="salary!=null">salary=#{salary},</if>
+            <if test="age!=null">age=#{age}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteById">
+        delete
+        from emp
+        where id = #{id}
+    </delete>
+
+
+</mapper>

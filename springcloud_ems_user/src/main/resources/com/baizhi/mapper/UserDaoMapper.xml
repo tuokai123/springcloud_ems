@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- namespace属性值：指定mapper文件管理的接口全限定名 .一个mapper文件只能管理一个 Dao接口-->
+<mapper namespace="com.baizhi.dao.UserDao">
+
+    <sql id="querySql">
+        select id,username,realname,password,sex,status,registerTime from user
+    </sql>
+
+    <select id="queryByUsername" resultType="User">
+         <include refid="querySql"/>
+         where username=#{username}
+    </select>
+
+    <insert id="insertUser">
+        insert into user(id,username,realname,password,sex,status,registerTime)
+        values(#{id},#{username},#{realname},#{password},#{sex},#{status},#{registerTime})
+    </insert>
+
+
+</mapper>

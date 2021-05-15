@@ -1,0 +1,39 @@
+server:
+  port: 8992
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:  #指定nacos注册中心地址
+      server-addr: 192.168.150.145:8849
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+
+    gateway:
+      routes:
+        - id: user_route			 # 指定路由唯一标识
+          uri: http://localhost:8799/ # 指定路由服务的地址  lb://users
+          predicates:
+            - Path=/user/**			 # 指定路由规则
+
+
+        - id: emp_route			 # 指定路由唯一标识
+          uri: http://localhost:8797/ # 指定路由服务的地址  lb://users
+          predicates:
+            - Path=/emp/**			 # 指定路由规则
+
+        - id: files_route             # 指定路由唯一标识
+          uri: http://localhost:8798/ # 指定路由服务的地址  lb://users
+          predicates:
+            - Path=/files/**             # 指定路由规则
+
+#      discovery:
+#        locator:
+#          enabled: true
+      globalcors:   #配置跨域
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+        add-to-simple-url-handler-mapping: true
